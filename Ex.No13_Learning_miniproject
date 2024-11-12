@@ -4,12 +4,90 @@
 ### AIM: 
 To write a program to train the classifier for -----------------.
 ###  Algorithm:
+1. Load and preprocess the dataset (defective and non-defective images).
+
+2. Apply data augmentation to increase the dataset size.
+
+3. Create a CNN model using transfer learning (VGG16) and fine-tune the last few layers.
+
+4. Train the model using K-Fold cross-validation.
+
+5. Evaluate the model's performance on each fold.
+
+6. Use the trained model to predict whether an input image is defective or non-defective.
+
+
 
 ### Program:
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings("ignore")
+
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor
+from sklearn import metrics
+from sklearn.metrics import mean_absolute_error,mean_squared_error,r2_score
+from sklearn.metrics import accuracy_score,confusion_matrix
+plt.figure(figsize=(15, 6))
+plt.xticks(rotation=90)
+df.agency.hist()
+plt.xlabel('Agency')
+plt.ylabel('Frequencies')
+plt.plot()df[['no2','state']].groupby(["state"]).mean().sort_values(by='no2').plot.bar(color='purple')
+plt.show()df[['no2','state']].groupby(["state"]).mean().sort_values(by='no2').plot.bar(color='purple')
+plt.show()
+df.drop(['agency'],axis=1,inplace=True)
+df.drop(['stn_code'],axis=1,inplace=True)
+df.drop(['date'],axis=1,inplace=True)
+df.drop(['sampling_date'],axis=1,inplace=True)def cal_SOi(so2):
+    si=0
+    if (so2<=40):
+     si= so2*(50/40)
+    elif (so2>40 and so2<=80):
+     si= 50+(so2-40)*(50/40)
+    elif (so2>80 and so2<=380):
+     si= 100+(so2-80)*(100/300)
+    elif (so2>380 and so2<=800):
+     si= 200+(so2-380)*(100/420)
+    elif (so2>800 and so2<=1600):
+     si= 300+(so2-800)*(100/800)
+    elif (so2>1600):
+     si= 400+(so2-1600)*(100/800)
+    return si
+df['SOi']=df['so2'].apply(cal_SOi)
+data= df[['so2','SOi']]
+data.head()
+def cal_RSPMI(rspm):
+    rpi=0
+    if(rpi<=30):
+     rpi=rpi*50/30
+    elif(rpi>30 and rpi<=60):
+     rpi=50+(rpi-30)*50/30
+    elif(rpi>60 and rpi<=90):
+     rpi=100+(rpi-60)*100/30
+    elif(rpi>90 and rpi<=120):
+     rpi=200+(rpi-90)*100/30
+    elif(rpi>120 and rpi<=250):
+     rpi=300+(rpi-120)*(100/130)
+    else:
+     rpi=400+(rpi-250)*(100/130)
+    return rpi
+df['Rpi']=df['rspm'].apply(cal_RSPMI)
+data= df[['rspm','Rpi']]
+data.head()
+
+
 
 
 ### Output:
 
 
+https://drive.google.com/drive/folders/1wk6rAU2OLGLxzG4sWHK4_0rVH6y9XI9y?usp=drive_link
 ### Result:
 Thus the system was trained successfully and the prediction was carried out.
